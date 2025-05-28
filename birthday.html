@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Pandoucha! 🎉</title>
+    <style>
+        /* CSS - Animated Birthday Card */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 400px;
+            z-index: 10;
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        h1 {
+            color: #ff6b6b;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        .cake {
+            font-size: 60px;
+            margin: 20px 0;
+            animation: flicker 1s infinite alternate;
+        }
+
+        button {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        button:hover {
+            background: #ff4757;
+            transform: scale(1.1);
+        }
+
+        /* Balloons */
+        .balloon {
+            position: absolute;
+            bottom: -100px;
+            width: 50px;
+            height: 60px;
+            border-radius: 50%;
+            animation: float-up 8s linear infinite;
+        }
+
+        /* Confetti */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #f00;
+            opacity: 0;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes float-up {
+            to { transform: translateY(-100vh) rotate(360deg); }
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Happy Birthday Pandoucha! 🎂</h1>
+        <p>Wishing you an amazing day filled with joy!</p>
+        <div class="cake">🎂</div>
+        <button id="celebrateBtn">Click for Celebration!</button>
+    </div>
+
+    <!-- Balloons will be added by JS -->
+    <div id="balloons-container"></div>
+
+    <!-- Confetti will be added by JS -->
+    <div id="confetti-container"></div>
+
+    <script>
+        // Create floating balloons
+        const colors = ['#ff6b6b', '#ffa502', '#2ed573', '#1e90ff', '#ff6348'];
+        const balloonsContainer = document.getElementById('balloons-container');
+
+        for (let i = 0; i < 15; i++) {
+            const balloon = document.createElement('div');
+            balloon.className = 'balloon';
+            balloon.style.left = `${Math.random() * 100}vw`;
+            balloon.style.background = colors[Math.floor(Math.random() * colors.length)];
+            balloon.style.animationDuration = `${6 + Math.random() * 6}s`;
+            balloon.style.opacity = 0.7 + Math.random() * 0.3;
+            balloonsContainer.appendChild(balloon);
+        }
+
+        // Confetti explosion
+        const celebrateBtn = document.getElementById('celebrateBtn');
+        const confettiContainer = document.getElementById('confetti-container');
+
+        celebrateBtn.addEventListener('click', () => {
+            // Optional: Play sound (uncomment if you want)
+            // const audio = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-happy-birthday-balloons-779.mp3');
+            // audio.play();
+
+            // Create 100 confetti pieces
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = `${50 + (Math.random() - 0.5) * 30}%`;
+                confetti.style.top = '50%';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                confetti.style.width = `${5 + Math.random() * 10}px`;
+                confetti.style.height = `${5 + Math.random() * 10}px`;
+                confetti.style.opacity = '1';
+                confetti.style.animation = `float-up ${1 + Math.random() * 2}s ease-out forwards`;
+                confettiContainer.appendChild(confetti);
+
+                // Remove confetti after animation
+                setTimeout(() => confetti.remove(), 2000);
+            }
+        });
+    </script>
+</body>
+</html>
